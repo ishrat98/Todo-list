@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Todo } from '../models/Todo';
 
-import { url } from 'inspector';
+//import { url } from 'inspector';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -26,6 +26,16 @@ export class TodoService {
     return this.http.get<Todo[]>(`${this.todosUrl}${this.todosLimit}`);
   
   }  
+  //delete todo
+  deleteTodo(todo:Todo):Observable<Todo> {
+    const url = `${this.todosUrl}/${todo.id}`;
+    return this.http.delete<Todo>(url, httpOptions);
+  }
+
+  //Add to do
+  addTodo(todo:Todo):Observable<Todo> {
+    return this.http.post<Todo>(this.todosUrl, todo , httpOptions);
+  }
 
   // Toggle completed
   toggleCompleted(todo: Todo): Observable<any>  {
